@@ -5,6 +5,6 @@
     End Sub
 
     Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
-
+        RichTextBox1.Clear()
     End Sub
 End Class
