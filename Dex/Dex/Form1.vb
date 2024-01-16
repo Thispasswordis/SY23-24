@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 
 Public Class Form1
+    Dim records(50) As String
     Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
         Field1.Text = ""
         Field2.Text = ""
@@ -35,8 +36,24 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim inFile As New StreamReader("Data.txt")
-        Field1.Text = inFile.ReadToEnd
-        inFile.Close()
+        If IO.File.Exists("Data.txt") Then
+            Dim inFile As New StreamReader("Data.txt")
+            Dim idx As Integer = 0
+            While (Not inFile.EndOfStream)
+                records(idx) = inFile.ReadLine
+                idx = idx + 1
+                ShowRecord(0)
+            End While
+        End If
+    End Sub
+    Public Sub ShowRecord(index As Integer)
+        Dim Fields() As String
+        Fields = records(index).Split("|")
+        Field1.Text = Fields(0)
+        Field2.Text = Fields(1)
+        Field3.Text = Fields(2)
+        Field4.Text = Fields(3)
+        Field5.Text = Fields(4)
+        PictureBox1.Load(Fields(5))
     End Sub
 End Class
